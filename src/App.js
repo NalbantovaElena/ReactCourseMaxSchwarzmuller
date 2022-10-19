@@ -1,10 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
-
-function App() {
-  const expenses = [
+ const DUMMY_EXPENSES = [
     {
       id: 'e1',
       title: 'Toilet Paper',
@@ -26,13 +24,31 @@ function App() {
     },
   ];
 
+function App() {
+  // Tова че сме променили стойността на дадена променлива,
+  // React не обновява компонента. За да се случи това използваме state
+
+ const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
+
   const addExpenseHandler = expense =>{
-    console.log('in App.js')
+    // expense - тук получаваме разходите(expense) като параметри
+    
+    //setExpenses([expense,...expenses]) - този начин за обновяване на състояние не е правилен
+    
+    //Това е правилният начин за update на state
+    //получаваме автоматично от React предишното състояние на масива
+   //актуализираме масива expenses по този начин като добавяме 
+   //новия expense на първо място в масива
+    setExpenses(prevExpenses =>{
+      return [expense, ...prevExpenses];
+    })
+    
+    // console.log('in App.js')
     console.log(expenses)
   }
   return (
  <div>
-     < NewExpense onAddExpense={addExpenseHandler}/>
+     <NewExpense onAddExpense={addExpenseHandler}/>
   
      <Expenses items={expenses}/>
      
@@ -42,4 +58,3 @@ function App() {
 }
 
 export default App;
-
