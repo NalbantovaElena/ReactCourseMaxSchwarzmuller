@@ -17,7 +17,7 @@ const Expenses = (props) => {
     <div>
       <Card className='expenses'>
         <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-      {/* Имаме достъп до props.items */}
+      {/* Имаме достъп до props.items  и използваме вградения метод за обхождане на масив в JS - map*/}
        {props.items.map((expenses)=>(
       <ExpenseItem
       title={expenses.title}
