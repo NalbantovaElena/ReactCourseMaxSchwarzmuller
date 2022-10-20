@@ -6,7 +6,7 @@ import ExpensesFilter from './ExpensesFilter';
 import './Expenses.css';
 
 const Expenses = (props) => {
-  
+  //console.log(props.items)
   const [filteredYear, setFilteredYear] = useState('2020');
 
   const filterChangeHandler = selectedYear => {
@@ -19,7 +19,13 @@ const Expenses = (props) => {
         <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
       {/* Имаме достъп до props.items  и използваме вградения метод за обхождане на масив в JS - map*/}
        {props.items.map((expenses)=>(
+        //тук след expenses може да се зададе index, (expenses, index)
+
       <ExpenseItem
+      //добавяме ключ във всеки елемент, за да е уникален
+      //В react това е концепция създадена , за да се рендерира 
+      //и актуализират ефективно подобни списъци
+      key ={expenses.id}
       title={expenses.title}
       amount={expenses.amount}
       date={expenses.date}
