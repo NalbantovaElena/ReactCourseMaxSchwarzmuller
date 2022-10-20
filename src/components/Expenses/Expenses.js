@@ -19,33 +19,31 @@ const Expenses = (props) => {
    const filteredExpenses = props.items.filter(expense=>{
     return expense.date.getFullYear().toString()===filteredYear
    })
+ let expensesContent = '<p>No expenses found.</p>';
+ if (filteredExpenses.length > 0) {
+  expensesContent =  filteredExpenses.map((expenses)=>(
+    //тук след expenses може да се зададе index, (expenses, index)
+    
+  <ExpenseItem
+  //добавяме ключ във всеки елемент, за да е уникален
+  //В react това е концепция създадена , за да се рендерира 
+  //и актуализират ефективно подобни списъци
+  key ={expenses.id}
+  title={expenses.title}
+  amount={expenses.amount}
+  date={expenses.date}
+   />
 
+   ))
+ }
   return (
     <div>
       <Card className='expenses'>
         <ExpensesFilter 
         selected={filteredYear} 
         onChangeFilter={filterChangeHandler} />
-      {/* Имаме достъп до props.items  и използваме вградения
-       метод за обхождане на масив в JS - map*/}
-       {filteredExpenses.length===0 ? (
-       <p>No expenses found.</p>
-       ) : (
-        filteredExpenses.map((expenses)=>(
-        //тук след expenses може да се зададе index, (expenses, index)
-        
-      <ExpenseItem
-      //добавяме ключ във всеки елемент, за да е уникален
-      //В react това е концепция създадена , за да се рендерира 
-      //и актуализират ефективно подобни списъци
-      key ={expenses.id}
-      title={expenses.title}
-      amount={expenses.amount}
-      date={expenses.date}
-       />
-
-       ))
-       )}
+        {expensesContent}
+      
     </Card>
     </div>
   );
