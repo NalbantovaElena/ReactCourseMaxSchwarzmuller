@@ -28,8 +28,10 @@ const Expenses = (props) => {
         onChangeFilter={filterChangeHandler} />
       {/* Имаме достъп до props.items  и използваме вградения
        метод за обхождане на масив в JS - map*/}
-       
-       {filteredExpenses.map((expenses)=>(
+       {filteredExpenses.length===0 ? (
+       <p>No expenses found.</p>
+       ) : (
+        filteredExpenses.map((expenses)=>(
         //тук след expenses може да се зададе index, (expenses, index)
         
       <ExpenseItem
@@ -42,7 +44,8 @@ const Expenses = (props) => {
       date={expenses.date}
        />
 
-       ))}
+       ))
+       )}
     </Card>
     </div>
   );
